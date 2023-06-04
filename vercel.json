@@ -20,8 +20,5 @@
     "env": {
         "API_KEY": "abcdefg12345",
         "DEBUG": "true"
-    },
-    "alias": {
-        "production": "taxi-jaune.vercel.app"
     }
 }
