@@ -13,7 +13,7 @@
         "methods": ["GET", "POST"]
         },
         {
-        "src": "/(.*)",
+        "src": "/assets/(.*)",
         "dest": "/assets/$1"
         }
     ],
