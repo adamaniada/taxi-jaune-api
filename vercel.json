@@ -1,6 +1,5 @@
 {
     "name": "Taxi-jaune",
-    "private": true,
     "builds": [
         {
         "src": "server.js",
