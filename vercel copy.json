@@ -22,6 +22,11 @@
         "API_KEY": "abcdefg12345",
         "DEBUG": "true"
     },
+    "functions": {
+        "myFunction": {
+        "memory": 512
+        }
+    },
     "alias": {
         "production": "taxi-jaune.vercel.app"
     }

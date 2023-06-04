@@ -1,4 +1,6 @@
-# USERS JSON TEST DATA
+# TAXI JAUNE GUIDE DATA
+
+## USERS JSON TEST DATA
 
 {
     "phoneNumber": "70000000",
@@ -7,7 +9,7 @@
     "role": "customer"
 }
 
-# REQUEST JSON DATA TEST
+## REQUEST JSON DATA TEST
 
 {
     "mobile_user_id": 1,
@@ -19,7 +21,7 @@
     "prix": 500
 }
 
-# LOCATIONS JSON DATA TEST
+## LOCATIONS JSON DATA TEST
 
 {
     "user_id": 2,
@@ -33,7 +35,7 @@
 }
 
 
-# FAVORIS
+## FAVORIS
 
 {
     "mobile_user_id": 23,
@@ -41,7 +43,7 @@
     "commentaires": "Bon conducteur"
 }
 
-# Notes
+## Notes
 
 {
     "mobile_user_id": 11131,
@@ -49,3 +51,10 @@
     "notes": "5/10",
     "commentaires": "Bon conducteur"
 }
+
+## GIT CODE 
+
+### Push code
+'''bash
+git add . && git commit -m "Message" && git branch -M main && git push -u origin main
+'''
