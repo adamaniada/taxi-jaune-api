@@ -2,19 +2,26 @@
     "name": "Taxi-jaune",
     "builds": [
         {
-        "src": "server.js",
-        "use": "@vercel/node"
+            "src": "server.js",
+            "use": "@vercel/node",
+            "config": { 
+                "includeFiles": ["assets/**"] 
+            }
         }
     ],
     "routes": [
         {
-        "src": "/(.*)",
-        "dest": "/server.js",
-        "methods": ["GET", "POST"]
+            "src": "/(.*)",
+            "dest": "/server.js",
+            "methods": ["GET", "POST"]
         },
         {
-        "src": "/assets/(.*)",
-        "dest": "/assets/$1"
+            "src": "/assets/(.*)",
+            "dest": "/assets/$1"
+        },
+        {
+            "src": "/(.+)",
+            "dest": "/public/$1"
         }
     ],
     "env": {
