@@ -55,14 +55,18 @@
 ## GIT CODE 
 
 ### Push code
-'''bash
+```bash
 git add . && git commit -m "Message" && git branch -M main && git push -u origin main
-'''
+```
 
 ## KNEX DATABASE MIGRATION
 Voici les étapes pour effectuer une migration de base de données MySQL dans un projet Node.js
 ### OPTION 1
+```bash
 - knex migrate:currentVersion
 - knex migrate:latest --env development
+```
 ### OPTION 2
-- knex migrate:make migration_name
+```bash
+- knex migrate:make development
+```
