@@ -14,6 +14,8 @@ app.use("/assets", express.static("assets"));
 
 
 app.get("/", function(req, res) {
+    console.log(require("dotenv").config())
+    // console.log(process.env)
     res.sendFile(__dirname + "/public/sign-in.html");
 })
 
@@ -49,7 +51,7 @@ app.use("/api/v1/notes", notesRouter)
 const PORT = process.env.PORT || 3000
 
 app.listen(PORT, () => {
-    console.log("Server is running .....")
+    console.log("Server is running on ", PORT, ".....")
 })
 
 // SET PASSWORD FOR 'root'@'localhost' = PASSWORD('adamaniada');
