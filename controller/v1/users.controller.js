@@ -3,9 +3,10 @@ const pool = require("../../database/Config")
 const postController = {
     getAll: async (req, res) => {
         try {
-            const [rows, fields] = await pool.query("select * from users")
+            const [users, fields] = await pool.query("select * from users")
+            
             res.json({
-                data: rows
+                data: users
             })
         } catch (error) {
             console.log(error)
@@ -17,9 +18,9 @@ const postController = {
     getById: async (req, res) => {
         try {
             const { id } = req.params
-            const [rows, fields] = await pool.query("select * from users where id=?", [id])
+            const [users, fields] = await pool.query("select * from users where id=?", [id])
             res.json({
-                data: rows
+                data: users
             })
         } catch (error) {
             console.log(error)
@@ -37,9 +38,9 @@ const postController = {
             }
 
             const sql = "insert into users (phoneNumber, password, user_type, role) values (?, ?, ?, ?)"
-            const [rows, fields] = await pool.query(sql, [phoneNumber, password, user_type, role])
+            const [users, fields] = await pool.query(sql, [phoneNumber, password, user_type, role])
             res.json({
-                data: rows
+                data: users
             })
         } catch (error) {
             console.log(error)
@@ -53,9 +54,9 @@ const postController = {
             const { phoneNumber, password, user_type, role } = req.body
             const { id } = req.params
             const sql = "update users set phoneNumber = ?, password = ?, user_type = ?, role = ? where id = ?"
-            const [rows, fields] = await pool.query(sql, [phoneNumber, password, user_type, role, id])
+            const [users, fields] = await pool.query(sql, [phoneNumber, password, user_type, role, id])
             res.json({
-                data: rows
+                data: users
             })
         } catch (error) {
             console.log(error)
@@ -67,9 +68,9 @@ const postController = {
     delete: async (req, res) => {
         try {
             const { id } = req.params
-            const [rows, fields] = await pool.query("delete from users where id = ?", [id])
+            const [users, fields] = await pool.query("delete from users where id = ?", [id])
             res.json({
-                data: rows
+                data: users
             })
         } catch (error) {
             console.log(error)

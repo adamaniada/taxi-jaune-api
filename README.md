@@ -3,10 +3,13 @@
 ## USERS JSON TEST DATA
 
 {
-    "phoneNumber": "70000000",
+    "phoneNumber": "75000000",
     "password": "my_password_crypt",
     "user_type": "mobile",
-    "role": "customer"
+    "role": "guest",
+    "token": "AEEAURURURURUsffdffd53536636ddd336gggrrERTERTETE655",
+    "created_at": "",
+    "updated_at": ""
 }
 
 ## REQUEST JSON DATA TEST
@@ -64,6 +67,9 @@ Voici les étapes pour effectuer une migration de base de données MySQL dans un
 ### OPTION 1
 ```bash
 - knex migrate:currentVersion
+```
+
+```bash
 - knex migrate:latest --env development
 ```
 ### OPTION 2

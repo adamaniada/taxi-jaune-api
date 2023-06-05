@@ -7,11 +7,14 @@
 exports.up = function(knex) {
     return knex.schema
         .createTable('users', function (table) {
-            table.increments('userId');
-            table.string('phoneNumber').notNullable();
+            table.increments('id');
+            table.string('lastName', 150).nullable();
+            table.string('firstName', 150).nullable();
+            table.string('phoneNumber', 15).notNullable();
             table.string('user_type', 40).nullable();
             table.string('role', 40).nullable();
             table.text('password').notNullable();
+            table.string('token', 1000).nullable();
             table.timestamps();
         })
         .createTable('posts', function (table) {
@@ -20,7 +23,7 @@ exports.up = function(knex) {
             table.string('content');
             table.timestamp('created_at', { precision: 6 }).defaultTo(knex.fn.now(6));
           
-            table.foreign('author').references('userId').inTable('users');
+            table.foreign('author').references('id').inTable('users');
         })
         .createTable('requettes', function (table) {
             table.increments('id');
@@ -71,6 +74,15 @@ exports.up = function(knex) {
             table.text('commentaires').notNullable();
             table.boolean('status');
             table.timestamps();
+        })
+        .createTable('usersActivityLogs', function (table) {
+            table.increments('id');
+            table.integer('userId').checkPositive();
+            table.string('ipAddress', 255).notNullable();
+            table.string('devise', 255).notNullable();
+            table.string('macAddress', 255).notNullable();
+            table.timestamps();
+            table.timestamp('logoutAt', { precision: 6 }).nullable();
         });
 };
 
@@ -86,5 +98,6 @@ exports.down = function(knex) {
         .dropTableIfExists("locations")
         .dropTableIfExists("notifications")
         .dropTableIfExists("favoris")
-        .dropTableIfExists('notes');
+        .dropTableIfExists('notes')
+        .dropTableIfExists('usersActivityLogs');
 };

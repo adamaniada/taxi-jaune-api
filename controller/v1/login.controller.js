@@ -1,46 +1,51 @@
 const pool = require("../../database/Config")
+const bcrypt = require("bcrypt");
+const path = require('path')
+var jwt = require('jsonwebtoken');
+require('dotenv').config()
 
 const loginController = {
     loginForm: (request, response) => {
-        response.sendFile(__dirname + "../../public/sign-in.html");
+        response.sendFile(path.resolve('public/sign-in.html'));
     },
     login: async (request, response) => {
         try {
-            const { phoneNumber, password } = request.body
-
-            if(!phoneNumber && !password) {
-                response.send('Please enter phoneNumber and Password!');
-		        response.end();
+            // Get input
+            const { phoneNumber, password } = request.body;
+        
+            // Validate input
+            if (!(phoneNumber && password)) {
+                response.status(400).send("Tout les champs sont requit");
             }
-
-            const [rows, fields] = await pool.query("select * from users where phoneNumber = ? and password = ?", [phoneNumber, password])
-
-            if (rows.length > 0) {
-				// Authenticate the user
-				request.session.loggedin = true;
-				request.session.phoneNumber = phoneNumber;
-                console.log("New auth user detected ---------------------------------------->");
-				// Redirect to home page
-				response.redirect('/home');
+            // Validate if query exist in our database
+            const [users, fields] = await pool.query("select * from users where phoneNumber = ?", [phoneNumber])
+        
+            if (users.length > 0) {
+                for(let i=0; i<users.length; i++){
+                    if (await bcrypt.compare(password, users[i].password)) {
+                        // Create token
+                        const token = jwt.sign(
+                            { user_id: users._id, phoneNumber },
+                            process.env.JWT_SECRET,
+                            {
+                                expiresIn: "2h",
+                            }
+                        );
+                
+                        // save token
+                        users.token = token;
+                    
+                        // return response
+                        // response.status(200).json(users);
+                        response.redirect('/dashboard');
+                    }
+                }
 			} else {
-				response.send('Incorrect Username and/or Password!');
+				response.status(400).send("Invalid Credentials");
 			}	
-        } catch (error) {
-            console.log(error)
-            response.json({
-                status: "error"
-            })
+          } catch (err) {
+            console.log(err);
         }
-    },
-    home: (request, response) => {
-        if (request.session.loggedin) {
-            // Output username
-            response.send('Welcome back, ' + request.session.phoneNumber + '!');
-        } else {
-            // Not logged in
-            response.send('Please login to view this page!');
-        }
-        response.end();
     }
 }
 
