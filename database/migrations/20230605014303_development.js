@@ -9,6 +9,7 @@ exports.up = function(knex) {
         .createTable('users', function (table) {
             table.increments('userId');
             table.string('phoneNumber').notNullable();
+            table.string('user_type', 40).notNullable();
             table.text('password').notNullable();
             table.timestamps();
         })
