@@ -21,16 +21,16 @@ app.post("/register", async (req, res) => {
     // Our register logic starts here
     try {
       // Get user input
-      const { first_name, last_name, email, password } = req.body;
+      const { first_name, last_name, phoneNumber, password } = req.body;
   
       // Validate user input
-      if (!(email && password && first_name && last_name)) {
+      if (!(phoneNumber && password && first_name && last_name)) {
         res.status(400).send("All input is required");
       }
   
       // check if user already exist
       // Validate if user exist in our database
-      const oldUser = await User.findOne({ email });
+      const oldUser = await User.findOne({ phoneNumber });
   
       if (oldUser) {
         return res.status(409).send("User Already Exist. Please Login");
@@ -43,13 +43,13 @@ app.post("/register", async (req, res) => {
       const user = await User.create({
         first_name,
         last_name,
-        email: email.toLowerCase(), // sanitize: convert email to lowercase
+        phoneNumber: email.toLowerCase(), // sanitize: convert phoneNumber to lowercase
         password: encryptedPassword,
       });
   
       // Create token
       const token = jwt.sign(
-        { user_id: user._id, email },
+        { user_id: user._id, phoneNumber },
         process.env.TOKEN_KEY,
         {
           expiresIn: "2h",
@@ -74,19 +74,19 @@ app.post("/login", async (req, res) => {
     // Our login logic starts here
     try {
       // Get user input
-      const { email, password } = req.body;
+      const { phoneNumber, password } = req.body;
   
       // Validate user input
-      if (!(email && password)) {
+      if (!(phoneNumber && password)) {
         res.status(400).send("All input is required");
       }
       // Validate if user exist in our database
-      const user = await User.findOne({ email });
+      const user = await User.findOne({ phoneNumber });
   
       if (user && (await bcrypt.compare(password, user.password))) {
         // Create token
         const token = jwt.sign(
-          { user_id: user._id, email },
+          { user_id: user._id, phoneNumber },
           process.env.TOKEN_KEY,
           {
             expiresIn: "2h",
