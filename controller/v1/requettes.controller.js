@@ -1,5 +1,5 @@
 const pool = require("../../database/Config")
-const cookieParser = require("cookie-parser");
+// const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 
 const postController = {

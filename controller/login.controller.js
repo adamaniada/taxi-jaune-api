@@ -16,7 +16,7 @@ const loginController = {
 
             // input data validation
             if (!(phoneNumber && password)) {
-                response.status(400).send("Tout les champs sont requit");
+                res.status(400).send("Tout les champs sont requit");
             }
 
             // database query

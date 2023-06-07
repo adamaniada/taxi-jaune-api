@@ -1,5 +1,5 @@
-const pool = require("../database/Config")
-const path = require('path')
+// const pool = require("../database/Config")
+// const path = require('path')
 const jwt = require("jsonwebtoken")
 require('dotenv').config()
 

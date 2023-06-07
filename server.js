@@ -5,8 +5,8 @@ const app = express()
 const cookieParser = require("cookie-parser");
 
 require('dotenv').config()
-app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser());
 
 // Use static file
@@ -31,10 +31,10 @@ const notesRouter = require("./routes/v1/notes.router")
 
 // App routes
 app.use("/", welcomeRouter)
-app.use("/register", registerRouter)
-app.use("/login", loginRouter)
-app.use("/refresh", refreshRouter)
-app.use("/logout", logoutRouter)
+app.use("/api/register", registerRouter)
+app.use("/api/login", loginRouter)
+app.use("/api/refresh", refreshRouter)
+app.use("/api/logout", logoutRouter)
 app.use("/api/v1/users", authorization, usersRouter)
 app.use("/api/v1/requettes", authorization, requettesRouter)
 app.use("/api/v1/locations", authorization, locationsRouter)

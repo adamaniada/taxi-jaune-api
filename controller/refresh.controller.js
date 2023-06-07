@@ -1,6 +1,6 @@
-const path = require('path')
-const pool = require("../database/Config")
-const bcrypt = require("bcrypt")
+// const path = require('path')
+// const pool = require("../database/Config")
+// const bcrypt = require("bcrypt")
 var jwt = require('jsonwebtoken')
 require('dotenv').config()
 
