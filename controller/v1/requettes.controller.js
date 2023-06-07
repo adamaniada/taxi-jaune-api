@@ -5,7 +5,15 @@ const jwt = require("jsonwebtoken");
 const postController = {
     getAll: async (req, res) => {
         try {
-            const [rows, fields] = await pool.query("select * from requettes")
+            // request mobile_user_id
+            const token = req.cookies.token;
+            const data = jwt.verify(token, process.env.JWT_SECRET);
+            const mobile_user_id = data.id;
+
+            // database query
+            const [rows, fields] = await pool.query("select * from requettes where mobile_user_id = ?", [mobile_user_id])
+
+            // return query
             res.json({
                 data: rows
             })

@@ -5,8 +5,15 @@ const jwt = require("jsonwebtoken");
 const postController = {
     getAll: async (req, res) => {
         try {
-            const [rows, fields] = await pool.query("select * from notifications")
-            // res.json({message: "Get all notifications"})
+            // request user_id
+            const token = req.cookies.token;
+            const data = jwt.verify(token, process.env.JWT_SECRET);
+            const user_id = data.id;
+
+            // database query
+            const [rows, fields] = await pool.query("select * from notifications where user_id = ?", [user_id])
+
+            //return response
             res.json({
                 data: rows
             })
