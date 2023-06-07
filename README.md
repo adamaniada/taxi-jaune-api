@@ -63,6 +63,7 @@
 git add . && git commit -m "Message" && git branch -M main && git push -u origin main
 ```
 
+
 ## KNEX DATABASE MIGRATION
 Voici les étapes pour effectuer une migration de base de données MySQL dans un projet Node.js
 ### OPTION 1
