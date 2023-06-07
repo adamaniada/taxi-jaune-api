@@ -1,4 +1,6 @@
 const pool = require("../../database/Config")
+const cookieParser = require("cookie-parser");
+const jwt = require("jsonwebtoken");
 
 const postController = {
     getAll: async (req, res) => {
@@ -31,14 +33,22 @@ const postController = {
     },
     create: async (req, res) => {
         try {
-            const { user_id, description, status } = req.body
+            // request user_id
+            const token = req.cookies.token;
+            const data = jwt.verify(token, process.env.JWT_SECRET);
+            const user_id = data.id;
+
+            // input data
+            const { description, status } = req.body
+            let created_at = new Date()
+            let updated_at = new Date()
             
             if(!user_id && !description) {
                 return res.sendStatus(400);
             }
 
-            const sql = "insert into notifications (user_id, description, status) values (?, ?, ?)"
-            const [rows, fields] = await pool.query(sql, [user_id, description, status])
+            // insert data
+            const [rows, fields] = await pool.query("insert into notifications (user_id, description, status, created_at, updated_at) values (?, ?, ?, ?, ?)", [user_id, description, status, created_at, updated_at])
             res.json({
                 data: rows
             })
@@ -51,10 +61,14 @@ const postController = {
     },
     update: async (req, res) => {
         try {
-            const { user_id, description, status } = req.body
+
+            // input data
+            const { description, status } = req.body
             const { id } = req.params
-            const sql = "update notifications set user_id = ?, description = ?, status = ? where id = ?"
-            const [rows, fields] = await pool.query(sql, [user_id, description, status, id])
+            let updated_at = new Date()
+
+            // update data
+            const [rows, fields] = await pool.query("update notifications set description = ?, status = ?, updated_at = ? where id = ?", [description, status, updated_at, id])
             res.json({
                 data: rows
             })

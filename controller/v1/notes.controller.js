@@ -1,4 +1,6 @@
 const pool = require("../../database/Config")
+const cookieParser = require("cookie-parser");
+const jwt = require("jsonwebtoken");
 
 const postController = {
     getAll: async (req, res) => {
@@ -31,14 +33,24 @@ const postController = {
     },
     create: async (req, res) => {
         try {
-            const { mobile_user_id, taxi_user_id, notes, commentaires } = req.body
+            // request mobile_user_id
+            const token = req.cookies.token;
+            const data = jwt.verify(token, process.env.JWT_SECRET);
+            const mobile_user_id = data.id;
+
             
-            if(!mobile_user_id && !taxi_user_id && !notes && !commentaires) {
+            // input data
+            const { taxi_user_id, note, commentaires } = req.body
+            let created_at = new Date()
+            let updated_at = new Date()
+            
+            
+            if(!mobile_user_id && !taxi_user_id && !note && !commentaires) {
                 return res.sendStatus(400);
             }
 
-            const sql = "insert into notes (mobile_user_id, taxi_user_id, notes, commentaires) values (?, ?, ?, ?)"
-            const [rows, fields] = await pool.query(sql, [mobile_user_id, taxi_user_id, notes, commentaires])
+            const sql = "insert into notes (mobile_user_id, taxi_user_id, note, commentaires, created_at, updated_at) values (?, ?, ?, ?, ?, ?)"
+            const [rows, fields] = await pool.query(sql, [mobile_user_id, taxi_user_id, note, commentaires, created_at, updated_at])
             res.json({
                 data: rows
             })
@@ -51,10 +63,14 @@ const postController = {
     },
     update: async (req, res) => {
         try {
-            const { mobile_user_id, taxi_user_id, notes, commentaires } = req.body
+            // input data
+            const { taxi_user_id, note, commentaires } = req.body
             const { id } = req.params
-            const sql = "update notes set mobile_user_id = ?, taxi_user_id = ?, notes = ?, commentaires= ? where id = ?"
-            const [rows, fields] = await pool.query(sql, [mobile_user_id, taxi_user_id, notes, commentaires, id])
+            let updated_at = new Date()
+
+            // database update
+            const sql = "update notes set taxi_user_id = ?, note = ?, commentaires= ?, updated_at = ? where id = ?"
+            const [rows, fields] = await pool.query(sql, [taxi_user_id, note, commentaires, updated_at, id])
             res.json({
                 data: rows
             })

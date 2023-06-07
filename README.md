@@ -3,20 +3,17 @@
 ## USERS JSON TEST DATA
 
 {
-    "phoneNumber": "75000000",
-    "password": "my_password_crypt",
+    "phoneNumber": "75000001",
+    "password": "my_password_will_crypted",
     "user_type": "mobile",
     "role": "guest",
-    "token": "AEEAURURURURUsffdffd53536636ddd336gggrrERTERTETE655",
-    "created_at": "",
-    "updated_at": ""
+    "token": "AEEAURURURURUsffdffd53536636ddd336gggrrERTERTETE655"
 }
 
 ## REQUEST JSON DATA TEST
 
 {
-    "mobile_user_id": 1,
-    "taxi_user_id": 2,
+    "taxi_user_id": 24,
     "lieu_depart": "Pissy",
     "lieu_arrive": "Zogona",
     "heure_depart": "2023-06-03 21:48:00",
@@ -27,8 +24,7 @@
 ## LOCATIONS JSON DATA TEST
 
 {
-    "user_id": 2,
-    "latitude": "-143,34",
+    "latitude": "143,34",
     "longitude": "334,76",
     "altitude": "34",
     "speed": "3",
@@ -37,11 +33,17 @@
     "description": "dffdggffgf n,kghgfvfbfgngng tnhthrgttytyt j;miouyjthth fbghghhhh"
 }
 
+## NOTIFICATION
+
+{
+    "description": "Taxi N°2 a accepte votre invitation",
+    "status": true
+}
+
 
 ## FAVORIS
 
 {
-    "mobile_user_id": 23,
     "taxi_user_id": 23,
     "commentaires": "Bon conducteur"
 }
@@ -49,9 +51,8 @@
 ## Notes
 
 {
-    "mobile_user_id": 11131,
-    "taxi_user_id": 2,
-    "notes": "5/10",
+    "taxi_user_id": 30,
+    "note": "5/10",
     "commentaires": "Bon conducteur"
 }
 
@@ -80,3 +81,12 @@ Voici les étapes pour effectuer une migration de base de données MySQL dans un
 - [ ] https://github.com/octo-org/octo-repo/issues/740
 - [ ] Add delight to the experience when all tasks are complete :tada:
 
+# COMMANDS AFTER DOWNLOAD CODE ON GITHUB
+
+```bash
+- npm install
+```
+
+```bash
+- npm start
+```

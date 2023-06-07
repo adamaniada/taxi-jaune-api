@@ -14,7 +14,7 @@ exports.up = function(knex) {
             table.string('user_type', 40).nullable();
             table.string('role', 40).nullable();
             table.text('password').notNullable();
-            table.string('token', 1000).nullable();
+            table.text('token').nullable();
             table.timestamps();
         })
         .createTable('posts', function (table) {

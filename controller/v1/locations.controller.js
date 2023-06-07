@@ -1,4 +1,6 @@
 const pool = require("../../database/Config")
+const cookieParser = require("cookie-parser");
+const jwt = require("jsonwebtoken");
 
 const postController = {
     getAll: async (req, res) => {
@@ -31,14 +33,22 @@ const postController = {
     },
     create: async (req, res) => {
         try {
-            const { user_id, latitude, longitude, altitude, speed, heart, name, description } = req.body
+            // request mobile_user_id
+            const token = req.cookies.token;
+            const data = jwt.verify(token, process.env.JWT_SECRET);
+            const mobile_user_id = data.id;
+
+            // input data
+            const { latitude, longitude, altitude, speed, heart, name, description } = req.body
+            let created_at = new Date()
+            let updated_at = new Date()
             
-            if(!user_id && !latitude && !longitude && !altitude && !speed && !heart && !name && !description) {
+            if(!latitude && !longitude && !altitude && !speed && !heart && !name && !description) {
                 return res.sendStatus(400);
             }
 
-            const sql = "insert into locations (user_id, latitude, longitude, altitude, speed, heart, name, description) values (?, ?, ?, ?, ?, ?, ?, ?)"
-            const [rows, fields] = await pool.query(sql, [user_id, latitude, longitude, altitude, speed, heart, name, description])
+            const sql = "insert into locations (user_id, latitude, longitude, altitude, speed, heart, name, description, created_at, updated_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+            const [rows, fields] = await pool.query(sql, [mobile_user_id, latitude, longitude, altitude, speed, heart, name, description, created_at, updated_at])
             res.json({
                 data: rows
             })
@@ -51,10 +61,13 @@ const postController = {
     },
     update: async (req, res) => {
         try {
-            const { user_id, latitude, longitude, altitude, speed, heart, name, description } = req.body
+            // input data
+            const { latitude, longitude, altitude, speed, heart, name, description } = req.body
             const { id } = req.params
-            const sql = "update locations set user_id = ?, latitude = ?, longitude = ?, altitude = ?, speed = ?, heart = ?, name = ?, description = ? where id = ?"
-            const [rows, fields] = await pool.query(sql, [user_id, latitude, longitude, altitude, speed, heart, name, description, id])
+            let updated_at = new Date()
+
+            const sql = "update locations set latitude = ?, longitude = ?, altitude = ?, speed = ?, heart = ?, name = ?, description = ?, updated_at = ? where id = ?"
+            const [rows, fields] = await pool.query(sql, [latitude, longitude, altitude, speed, heart, name, description, updated_at, id])
             res.json({
                 data: rows
             })

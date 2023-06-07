@@ -1,4 +1,6 @@
 const pool = require("../../database/Config")
+const cookieParser = require("cookie-parser");
+const jwt = require("jsonwebtoken");
 
 const postController = {
     getAll: async (req, res) => {
@@ -30,14 +32,23 @@ const postController = {
     },
     create: async (req, res) => {
         try {
-            const { mobile_user_id, taxi_user_id, lieu_depart, lieu_arrive, heure_depart, distance, prix } = req.body
+            // request mobile_user_id
+            const token = req.cookies.token;
+            const data = jwt.verify(token, process.env.JWT_SECRET);
+            const mobile_user_id = data.id;
+
+            // input data
+            const { taxi_user_id, lieu_depart, lieu_arrive, heure_depart, distance, prix } = req.body
+            let created_at = new Date()
+            let updated_at = new Date()
             
+            // validate data
             if(!mobile_user_id && !taxi_user_id && lieu_depart && lieu_arrive && heure_depart && distance && prix) {
                 return res.sendStatus(400);
             }
 
-            const sql = "insert into requettes (mobile_user_id, taxi_user_id, lieu_depart, lieu_arrive, heure_depart, distance, prix) values (?, ?, ?, ?, ?, ?, ?)"
-            const [rows, fields] = await pool.query(sql, [mobile_user_id, taxi_user_id, lieu_depart, lieu_arrive, heure_depart, distance, prix])
+            const sql = "insert into requettes (mobile_user_id, taxi_user_id, lieu_depart, lieu_arrive, heure_depart, distance, prix, created_at, updated_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+            const [rows, fields] = await pool.query(sql, [mobile_user_id, taxi_user_id, lieu_depart, lieu_arrive, heure_depart, distance, prix, created_at, updated_at])
             res.json({
                 data: rows
             })
@@ -50,10 +61,14 @@ const postController = {
     },
     update: async (req, res) => {
         try {
-            const { mobile_user_id, taxi_user_id, lieu_depart, lieu_arrive, heure_depart, distance, prix } = req.body
+            // input data
+            const { taxi_user_id, lieu_depart, lieu_arrive, heure_depart, distance, prix } = req.body
             const { id } = req.params
-            const sql = "update requettes set mobile_user_id = ?, taxi_user_id = ?, lieu_depart = ?, lieu_arrive = ?, heure_depart = ?, distance = ?, prix = ? where id = ?"
-            const [rows, fields] = await pool.query(sql, [mobile_user_id, taxi_user_id, lieu_depart, lieu_arrive, heure_depart, distance, prix, id])
+            let updated_at = new Date()
+
+            // database update
+            const sql = "update requettes set taxi_user_id = ?, lieu_depart = ?, lieu_arrive = ?, heure_depart = ?, distance = ?, prix = ?, updated_at = ? where id = ?"
+            const [rows, fields] = await pool.query(sql, [taxi_user_id, lieu_depart, lieu_arrive, heure_depart, distance, prix, updated_at, id])
             res.json({
                 data: rows
             })
