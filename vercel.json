@@ -26,6 +26,15 @@
     ],
     "env": {
         "API_KEY": "abcdefg12345",
-        "DEBUG": "true"
+        "DEBUG": "true",
+        "PORT": 4001,
+        "DB_HOST": "localhost",
+        "DB_USERNAME": "root",
+        "DB_PASSWORD": "adamaniada",
+        "DB_NAME": "taxi-jaune",
+        "JWT_SECRET": "secret",
+        "JWT_EXPIRES_IN": "2h",
+        "JWT_REFRESH_EXPIRATION": 864000,
+        "NODE_ENV": "production"
     }
 }
