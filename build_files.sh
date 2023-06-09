@@ -9,6 +9,7 @@
 # # echo "Make migration"
 # python3.9 manage.py migrate --noinput
 # python3.9 manage.py makemigrations --noinput
+knex migrate:latest --env development
 
 # # Collect static
 # # echo "Collect static"

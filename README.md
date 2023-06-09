@@ -2,6 +2,7 @@
 
 ## USERS JSON TEST DATA
 
+```json
 {
     "phoneNumber": "75000001",
     "password": "my_password_will_crypted",
@@ -9,9 +10,12 @@
     "role": "guest",
     "token": "AEEAURURURURUsffdffd53536636ddd336gggrrERTERTETE655"
 }
+```
+
 
 ## REQUEST JSON DATA TEST
 
+```json
 {
     "taxi_user_id": 24,
     "lieu_depart": "Pissy",
@@ -20,9 +24,11 @@
     "distance": 445,
     "prix": 500
 }
+```
 
 ## LOCATIONS JSON DATA TEST
 
+```json
 {
     "latitude": "143,34",
     "longitude": "334,76",
@@ -32,29 +38,37 @@
     "name": "Customer",
     "description": "dffdggffgf n,kghgfvfbfgngng tnhthrgttytyt j;miouyjthth fbghghhhh"
 }
+```
+
 
 ## NOTIFICATION
 
+```json
 {
     "description": "Taxi N°2 a accepte votre invitation",
     "status": true
 }
+```
 
 
 ## FAVORIS
 
+```json
 {
     "taxi_user_id": 23,
     "commentaires": "Bon conducteur"
 }
+```
 
 ## Notes
 
+```json
 {
     "taxi_user_id": 30,
     "note": "5/10",
     "commentaires": "Bon conducteur"
 }
+```
 
 
 ## GIT CODE 
