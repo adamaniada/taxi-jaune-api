@@ -35,10 +35,13 @@
         "API_KEY": "abcdefg12345",
         "DEBUG": "true",
         "PORT": "4001",
-        "DB_HOST": "localhost",
-        "DB_USERNAME": "root",
-        "DB_PASSWORD": "adamaniada",
-        "DB_NAME": "taxi-jaune",
+
+        "DB_HOST": "185.98.131.176",
+        "DB_USERNAME": "yamba1770964_8fgcij",
+        "DB_PASSWORD": "Yambadh2019@",
+        "DB_NAME": "yamba1770964_8fgcij",
+
+
         "JWT_SECRET": "secret",
         "JWT_EXPIRES_IN": "2h",
         "JWT_REFRESH_EXPIRATION": "864000",
